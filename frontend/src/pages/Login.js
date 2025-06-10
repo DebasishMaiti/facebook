@@ -52,7 +52,7 @@ const Login = () => {
               const facebookPageId = page.id;
               const facebookPageAccessToken = page.access_token;
 
-              axios.post('https://social.cakekipathshala.com/user/facebookuser', {
+              axios.post('https://facebook-seven-cyan.vercel.app/user/facebookuser', {
                 facebookId,
                 facebookPageId,
                 facebookPageAccessToken

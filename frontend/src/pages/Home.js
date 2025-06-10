@@ -11,7 +11,7 @@ const Home = () => {
 
   const dataSendtoApi = async () => {
     try {
-      const res = await axios.post(`https://social.cakekipathshala.com/api/schedule-ai-post`, {
+      const res = await axios.post(`https://facebook-seven-cyan.vercel.app/api/schedule-ai-post`, {
         prompt: value,
         scheduledTime,
         userId: id,
@@ -24,7 +24,7 @@ const Home = () => {
   };
 
   const logout = async () => {
-    await axios.delete(`https://social.cakekipathshala.com/user/deleteuser/${id}`);
+    await axios.delete(`https://facebook-seven-cyan.vercel.app/user/deleteuser/${id}`);
     localStorage.removeItem("userId");
     navigate("/");
   };
