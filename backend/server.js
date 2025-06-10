@@ -3,8 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const postRoutes = require('./routes/postRoutes');
-const userRoutes = require('./routes/userRoutes');
+const postRoutes = require('./Routes/postRoutes');
+const userRoutes = require('./Routes/userRoutes');
 const startCronJob = require('./cron/postScheduler');
 
 const app = express();
