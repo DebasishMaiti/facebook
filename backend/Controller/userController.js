@@ -9,7 +9,7 @@ exports.createOrUpdateUser = async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    let user = await User.findOne({ facebookId });
+    let user = await User.find({ facebookId });
 
     if (user) {
       user.facebookPageId = facebookPageId;
