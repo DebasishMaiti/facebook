@@ -37,7 +37,7 @@ exports.scheduleAIPost = async (req, res) => {
     console.log(`Post created for request [${requestId}]:`, newPost._id);
     res.status(201).json({ message: 'Post scheduled successfully', post: newPost });
   } catch (err) {
-    console.error(`Error scheduling post [${requestId}]:`, err.message);
+    console.error(`Error scheduling post`, err.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
