@@ -8,8 +8,8 @@ exports.scheduleAIPost = async (req, res) => {
     if (!prompt || !scheduledTime || !userId) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
-    const requestId = `${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
-    console.log(`Received request [${requestId}]:`, { userId, scheduledTime, prompt });
+ 
+ 
 
     // Check for duplicate post
     const existingPost = await Post.findOne({ 
@@ -19,7 +19,7 @@ exports.scheduleAIPost = async (req, res) => {
       posted: false 
     });
     if (existingPost) {
-      console.log(`Duplicate post found for request [${requestId}]:`, existingPost._id);
+ 
       return res.status(400).json({ error: 'A similar post is already scheduled for this time' });
     }
 
@@ -34,7 +34,7 @@ exports.scheduleAIPost = async (req, res) => {
     });
 
     await newPost.save();
-    console.log(`Post created for request [${requestId}]:`, newPost._id);
+ 
     res.status(201).json({ message: 'Post scheduled successfully', post: newPost });
   } catch (err) {
     console.error(`Error scheduling post`, err.message);
