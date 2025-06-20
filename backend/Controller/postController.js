@@ -4,7 +4,7 @@ const { generateImage } = require('../utills/deepai');
 
 exports.scheduleAIPost = async (req, res) => {
   try {
-    const { prompt, scheduledTime, userId, requestId } = req.body;
+    const { prompt, scheduledTime, userId } = req.body;
     if (!prompt || !scheduledTime || !userId) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
@@ -18,7 +18,7 @@ exports.scheduleAIPost = async (req, res) => {
       posted: false 
     });
     if (existingPost) {
-      console.log(`Duplicate post found for request [${requestId}]:`, existingPost._id);
+      console.log(`Duplicate post found for request [}]:`, existingPost._id);
       return res.status(400).json({ error: 'A similar post is already scheduled for this time' });
     }
 
@@ -33,10 +33,10 @@ exports.scheduleAIPost = async (req, res) => {
     });
 
     await newPost.save();
-    console.log(`Post created for request [${requestId}]:`, newPost._id);
+    console.log(`Post created for request [}]:`, newPost._id);
     res.status(201).json({ message: 'Post scheduled successfully', post: newPost });
   } catch (err) {
-    console.error(`Error scheduling post [${requestId}]:`, err.message);
+    console.error(`Error scheduling post [}]:`, err.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
