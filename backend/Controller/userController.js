@@ -3,7 +3,8 @@ const User = require('../Model/User');
 exports.createOrUpdateUser = async (req, res) => {
   try {
     const { facebookId, facebookPageId, facebookPageAccessToken } = req.body;
-
+    console.log(facebookId, facebookPageId, facebookPageAccessToken);
+    
     if (!facebookId || !facebookPageId || !facebookPageAccessToken) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
@@ -13,8 +14,8 @@ exports.createOrUpdateUser = async (req, res) => {
     if (user) {
       user.facebookPageId = facebookPageId;
       user.facebookPageAccessToken = facebookPageAccessToken;
-      await user.save();
-    } else {
+      await user.save();  
+    } else {   
       user = new User({
         facebookId,
         facebookPageId,
@@ -22,7 +23,7 @@ exports.createOrUpdateUser = async (req, res) => {
       });
       await user.save();
     }
-
+    
     res.status(200).json({ message: 'User saved successfully', user });
   } catch (error) {
     console.error('Error saving user:', error.message);

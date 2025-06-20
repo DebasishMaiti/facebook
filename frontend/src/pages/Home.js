@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'; // Install: npm install uuid
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,23 +9,31 @@ const Home = () => {
   const id = JSON.parse(Lid);
   const [value, setValue] = useState("");
   const [scheduledTime, setScheduledTime] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const dataSendtoApi = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    const requestId = uuidv4(); // Unique ID for this request
+    console.log(`Sending API request [${requestId}]:`, { prompt: value, scheduledTime, userId: id });
     try {
-      const res = await axios.post(`https://facebook-seven-cyan.vercel.app/api/schedule-ai-post`, {
+      const res = await axios.post(`http://localhost:5000/api/schedule-ai-post`, {
         prompt: value,
         scheduledTime,
         userId: id,
+        requestId // Send requestId to backend
       });
       alert("✅ Post scheduled successfully!");
     } catch (error) {
-      console.error("❌ API error:", error);
+      console.error(`❌ API error [${requestId}]:`, error);
       alert("Failed to schedule post.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const logout = async () => {
-    await axios.delete(`https://facebook-seven-cyan.vercel.app/user/deleteuser/${id}`);
+    await axios.delete(`http://localhost:5000/user/deleteuser/${id}`);
     localStorage.removeItem("userId");
     navigate("/");
   };
@@ -46,9 +55,10 @@ const Home = () => {
       />
       <button
         onClick={dataSendtoApi}
+        disabled={isSubmitting || !value || !scheduledTime}
         style={{ padding: '10px', fontSize: '16px', backgroundColor: '#28a745', color: 'white', border: 'none' }}
       >
-        Schedule AI Post
+        {isSubmitting ? 'Scheduling...' : 'Schedule AI Post'}
       </button>
       <button
         onClick={logout}

@@ -9,8 +9,8 @@ const Login = () => {
   useEffect(() => {
     window.fbAsyncInit = function () {
       window.FB.init({
-        // appId: '1420242802316786',
-        appId:'932082188994951',
+        appId: '1420242802316786',
+        // appId:'932082188994951',
         cookie: true,
         xfbml: true,
         version: 'v19.0',
@@ -43,6 +43,7 @@ const Login = () => {
             const facebookId = userData.id;
 
             window.FB.api('/me/accounts', function (pageData) {
+              console.log('📦 Page Data:', pageData); 
               if (!pageData?.data?.length) {
                 alert('No Facebook Pages found.');
                 return;
@@ -52,7 +53,7 @@ const Login = () => {
               const facebookPageId = page.id;
               const facebookPageAccessToken = page.access_token;
 
-              axios.post('https://facebook-seven-cyan.vercel.app/user/facebookuser', {
+              axios.post('http://localhost:5000/user/facebookuser', {
                 facebookId,
                 facebookPageId,
                 facebookPageAccessToken
@@ -71,9 +72,10 @@ const Login = () => {
           alert(`Facebook login was cancelled or failed.`);
         }
       },
-      {
-        scope: 'pages_show_list,pages_read_engagement,pages_manage_posts',
-      }
+  {
+    scope: 'pages_show_list, pages_manage_posts',
+    auth_type: 'rerequest' // 👈 Forces Facebook to ask again
+  }
     );
   };
 
