@@ -4,7 +4,9 @@ const { generateImage } = require('../utills/deepai');
 
 exports.scheduleAIPost = async (req, res) => {
   try {
-    const { prompt, scheduledTime, userId, requestId } = req.body;
+    let requestId = 'UNKNOWN';
+    const { prompt, scheduledTime, userId, requestId:reqIdFromBody } = req.body;
+    requestId = reqIdFromBody || 'MISSING';
     if (!prompt || !scheduledTime || !userId) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
