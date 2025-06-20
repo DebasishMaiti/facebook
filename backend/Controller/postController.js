@@ -6,6 +6,7 @@ exports.scheduleAIPost = async (req, res) => {
   try {
     let requestId = 'UNKNOWN';
     const { prompt, scheduledTime, userId, requestId:reqIdFromBody } = req.body;
+      console.log('🔥 scheduleAIPost triggered');
     requestId = reqIdFromBody || 'MISSING';
     if (!prompt || !scheduledTime || !userId) {
       return res.status(400).json({ error: 'Missing required fields' });
