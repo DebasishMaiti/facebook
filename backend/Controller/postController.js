@@ -9,7 +9,6 @@ exports.scheduleAIPost = async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    console.log(`Received request [${requestId}]:`, { userId, scheduledTime, prompt });
 
     // Check for duplicate post
     const existingPost = await Post.findOne({ 
