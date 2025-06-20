@@ -53,7 +53,7 @@ const Login = () => {
               const facebookPageId = page.id;
               const facebookPageAccessToken = page.access_token;
 
-              axios.post('http://localhost:5000/user/facebookuser', {
+              axios.post('https://facebook-seven-cyan.vercel.app/user/facebookuser', {
                 facebookId,
                 facebookPageId,
                 facebookPageAccessToken

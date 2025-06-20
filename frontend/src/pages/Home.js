@@ -17,7 +17,7 @@ const Home = () => {
     const requestId = uuidv4(); // Unique ID for this request
     console.log(`Sending API request [${requestId}]:`, { prompt: value, scheduledTime, userId: id });
     try {
-      const res = await axios.post(`http://localhost:5000/api/schedule-ai-post`, {
+      const res = await axios.post(`https://facebook-seven-cyan.vercel.app/api/schedule-ai-post`, {
         prompt: value,
         scheduledTime,
         userId: id,
@@ -33,7 +33,7 @@ const Home = () => {
   };
 
   const logout = async () => {
-    await axios.delete(`http://localhost:5000/user/deleteuser/${id}`);
+    await axios.delete(`https://facebook-seven-cyan.vercel.app/user/deleteuser/${id}`);
     localStorage.removeItem("userId");
     navigate("/");
   };
